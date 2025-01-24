@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { MovieContext } from "../contexts/MovieContext";
+import MovieContext from "../contexts/MovieContext";
 
 const MovieDetailsCard = () => {
   const { movies } = useContext(MovieContext);

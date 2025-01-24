@@ -1,35 +1,31 @@
-import React, { useContext } from "react";
-import { LineChart } from "@mui/x-charts/LineChart";
-import { MovieContext } from "../../contexts/MovieContext";
+import { BarChart } from "@mui/x-charts/BarChart";
+import { useMovies } from "../../hooks/useMovies";
 
-const OscarStatsChart = () => {
-  const { movies } = useContext(MovieContext);
+export default function OscarStatsChart() {
+  const movies = useMovies();
 
-  // Aggregate Oscar wins by year
-  const oscarData = movies.reduce((acc, movie) => {
-    if (movie.oscarWins) {
-      acc[movie.year] = (acc[movie.year] || 0) + movie.oscarWins;
-    }
-    return acc;
-  }, {});
+  const processData = () => {
+    const years = [...new Set(movies.map((m) => m.year))].sort();
+    const wins = years.map((year) =>
+      movies
+        .filter((m) => m.year === year)
+        .reduce((acc, m) => acc + (m.oscarsWon || 0), 0)
+    );
+    return { years, wins };
+  };
 
-  // Extract data for the chart
-  const years = Object.keys(oscarData).map(Number);
-  const wins = Object.values(oscarData);
+  const { years, wins } = processData();
 
   return (
     <div className="card mb-4">
       <div className="card-body">
-        <h5 className="card-title">Oscar Statistics</h5>
-        <LineChart
-          xAxis={[{ data: years, scaleType: "linear", label: "Year" }]}
-          series={[{ data: wins, label: "Oscar Wins" }]}
-          width={500}
+        <h5 className="card-title">Oscar Wins by Year</h5>
+        <BarChart
+          xAxis={[{ scaleType: "band", data: years }]}
+          series={[{ data: wins }]}
           height={300}
         />
       </div>
     </div>
   );
-};
-
-export default OscarStatsChart;
+}
