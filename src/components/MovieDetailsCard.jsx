@@ -1,43 +1,52 @@
-import React, { useContext, useState } from "react";
-import MovieContext from "../contexts/MovieContext";
+import React from "react";
+import { useMovies } from "../hooks/useMovies";
 
-const MovieDetailsCard = () => {
-  const { movies } = useContext(MovieContext);
-  const [selectedMovie, setSelectedMovie] = useState(null);
-
-  const handleMovieClick = (movie) => {
-    setSelectedMovie(movie);
-  };
+export default function MovieDetailsCard() {
+  const movies = useMovies();
 
   return (
-    <div className="card mb-4">
-      <div className="card-body">
-        <h5 className="card-title">Movie Details</h5>
-        {selectedMovie ? (
-          <div>
-            <h6>{selectedMovie.title}</h6>
-            <p>Year: {selectedMovie.year}</p>
-            <p>Rating: {selectedMovie.rating}</p>
-            <p>Oscar Wins: {selectedMovie.oscarWins}</p>
+    <div className="row">
+      {movies.map((movie) => (
+        <div key={movie.id} className="col-md-2 mb-4">
+          <div className="flip-card">
+            <div className="flip-card-inner">
+              {/* Front Side */}
+              <div className="flip-card-front">
+                <img
+                  src={movie.poster}
+                  alt={movie.title}
+                  className="img-fluid rounded"
+                  style={{ height: "400px", width: "100%", objectFit: "cover" }}
+                />
+              </div>
+
+              {/* Back Side */}
+              <div className="flip-card-back p-3">
+                <h5 className="mb-3">{movie.title}</h5>
+                <div className="card-text">
+                  <p>
+                    <strong>Plot:</strong> {movie.plot}
+                  </p>
+                  <div className="list-group">
+                    <div className="list-group-item">
+                      <strong>Country:</strong> {movie.country}
+                    </div>
+                    <div className="list-group-item">
+                      <strong>Language:</strong> {movie.language}
+                    </div>
+                    <div className="list-group-item">
+                      <strong>Year:</strong> {movie.year}
+                    </div>
+                    <div className="list-group-item">
+                      <strong>Rating:</strong> {movie.rating}/10
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-        ) : (
-          <p>Select a movie to see details.</p>
-        )}
-        <ul className="list-group mt-3">
-          {movies.map((movie) => (
-            <li
-              key={movie.id}
-              className="list-group-item"
-              onClick={() => handleMovieClick(movie)}
-              style={{ cursor: "pointer" }}
-            >
-              {movie.title}
-            </li>
-          ))}
-        </ul>
-      </div>
+        </div>
+      ))}
     </div>
   );
-};
-
-export default MovieDetailsCard;
+}

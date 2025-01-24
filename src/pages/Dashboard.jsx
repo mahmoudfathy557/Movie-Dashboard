@@ -15,8 +15,10 @@ const Dashboard = () => (
       </Col>
       <Col md={8}>
         <OscarStatsChart />
-        <MovieDetailsCard />
       </Col>
+    </Row>
+    <Row>
+      <MovieDetailsCard />
     </Row>
   </Container>
 );

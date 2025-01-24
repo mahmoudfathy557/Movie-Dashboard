@@ -4,27 +4,64 @@ import { useMovies } from "../../hooks/useMovies";
 export default function OscarStatsChart() {
   const movies = useMovies();
 
-  const processData = () => {
-    const years = [...new Set(movies.map((m) => m.year))].sort();
-    const wins = years.map((year) =>
-      movies
-        .filter((m) => m.year === year)
-        .reduce((acc, m) => acc + (m.oscarsWon || 0), 0)
-    );
-    return { years, wins };
+  const processAwardsData = () => {
+    const movieData = movies
+      .filter((movie) => movie.awards) // Only movies with awards
+      .map((movie) => {
+        const awards = movie.awards;
+        const isWin = awards.includes("Won");
+        const isNomination = awards.includes("Nominated");
+        const countMatch = awards.match(/\d+/);
+        const count = countMatch ? parseInt(countMatch[0]) : 0;
+
+        return {
+          title: movie.title,
+          nominations: isNomination ? count : 0,
+          wins: isWin ? count : 0,
+        };
+      })
+      .filter((movie) => movie.nominations > 0 || movie.wins > 0); // Only movies with actual numbers
+
+    return movieData;
   };
 
-  const { years, wins } = processData();
+  const awardsData = processAwardsData();
 
   return (
     <div className="card mb-4">
       <div className="card-body">
-        <h5 className="card-title">Oscar Wins by Year</h5>
-        <BarChart
-          xAxis={[{ scaleType: "band", data: years }]}
-          series={[{ data: wins }]}
-          height={300}
-        />
+        <h5 className="card-title">Movie Oscar Nominations vs Wins</h5>
+        <div style={{ overflowX: "auto", maxWidth: "100%" }}>
+          <BarChart
+            xAxis={[
+              {
+                scaleType: "band",
+                data: awardsData.map((m) => m.title),
+                label: "Movies",
+                tickLabelStyle: {
+                  angle: 45,
+                  textAnchor: "start",
+                  fontSize: 12,
+                },
+              },
+            ]}
+            series={[
+              {
+                data: awardsData.map((m) => m.nominations),
+                label: "Nominations",
+                color: "#ffc107",
+              },
+              {
+                data: awardsData.map((m) => m.wins),
+                label: "Wins",
+                color: "#198754",
+              },
+            ]}
+            height={400}
+            width={Math.max(awardsData.length * 100, 800)}
+            margin={{ left: 70, bottom: 100 }}
+          />
+        </div>
       </div>
     </div>
   );
