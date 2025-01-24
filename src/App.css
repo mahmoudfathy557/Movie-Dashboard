@@ -14,3 +14,12 @@ body {
 .list-group-item {
   transition: background-color 0.2s;
 }
+
+.clickable {
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.clickable:hover {
+  background-color: #f8f9fa;
+}
