@@ -19,8 +19,20 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "jest --watchAll",
     "eject": "react-scripts eject"
+  },
+  "jest": {
+    "testEnvironment": "jsdom",
+    "transform": {
+      "^.+\\.(js|jsx)$": "babel-jest"
+    },
+    "transformIgnorePatterns": [
+      "/node_modules/(?!axios|@mui)"
+    ],
+    "setupFilesAfterEnv": [
+      "<rootDir>/jest.setup.js"
+    ]
   },
   "eslintConfig": {
     "extends": [
@@ -41,6 +53,11 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "^7.26.7",
+    "@babel/plugin-transform-modules-commonjs": "^7.26.3",
+    "@babel/preset-env": "^7.26.7",
+    "babel-jest": "^29.7.0",
+    "jest": "^27.5.1",
     "web-vitals": "^4.2.4"
   }
 }

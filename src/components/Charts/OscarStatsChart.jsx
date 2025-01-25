@@ -1,3 +1,4 @@
+import React from "react";
 import { BarChart } from "@mui/x-charts/BarChart";
 import { useMovies } from "../../hooks/useMovies";
 

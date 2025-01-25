@@ -1,11 +1,9 @@
+import React from "react";
 import { useMovies } from "../../hooks/useMovies";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { PieChart } from "@mui/x-charts/PieChart";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
 
 export default function TopPerformersChart() {
   const movies = useMovies();
