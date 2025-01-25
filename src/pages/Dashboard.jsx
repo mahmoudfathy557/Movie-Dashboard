@@ -4,10 +4,11 @@ import OscarStatsChart from "../components/Charts/OscarStatsChart";
 import TopPerformersChart from "../components/Charts/TopPerformersChart";
 import MovieDetailsCard from "../components/MovieDetailsCard";
 import { Container, Row, Col } from "react-bootstrap";
+import MovieCards from "../components/movieCards";
 
 const Dashboard = () => (
   <Container fluid className="p-4">
-    <h1 className="mb-4">Movie Dashboard</h1>
+    <h1 className="mb-4 text-center">Movie Dashboard</h1>
     <Row>
       <Col md={4}>
         <SearchFilterPanel />
@@ -18,7 +19,7 @@ const Dashboard = () => (
       </Col>
     </Row>
     <Row>
-      <MovieDetailsCard />
+      <MovieCards />
     </Row>
   </Container>
 );

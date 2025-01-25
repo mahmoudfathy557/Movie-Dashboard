@@ -3,7 +3,7 @@ import { useMovies } from "../../hooks/useMovies";
 export default function TopPerformersChart() {
   const movies = useMovies();
 
-  const topMovies = [...movies].sort((a, b) => b.rating - a.rating).slice(0, 5);
+  const topMovies = [...movies].sort((a, b) => b.rating - a.rating).slice(0, 7);
 
   return (
     <div className="card mb-4">
