@@ -1,10 +1,12 @@
 import { useContext, useState } from "react";
 import MovieContext from "../contexts/MovieContext";
+import { useMovies } from "../hooks/useMovies";
+import { Loader } from "./Loader";
 
 export default function SearchFilterPanel() {
   const { setFilters } = useContext(MovieContext);
   const [searchTerm, setSearchTerm] = useState("");
-
+  const { loading } = useMovies();
   const handleSearch = (e) => {
     e.preventDefault();
     setFilters((prev) => ({ ...prev, title: searchTerm }));
@@ -14,6 +16,7 @@ export default function SearchFilterPanel() {
     <div className="card mb-4">
       <div className="card-body">
         <form onSubmit={handleSearch}>
+          {loading && <Loader size={20} />}
           <div className="input-group">
             <input
               type="text"

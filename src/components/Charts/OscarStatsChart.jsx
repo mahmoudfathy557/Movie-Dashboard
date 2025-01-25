@@ -1,9 +1,10 @@
 import React from "react";
 import { BarChart } from "@mui/x-charts/BarChart";
 import { useMovies } from "../../hooks/useMovies";
+import { Loader } from "../Loader";
 
 export default function OscarStatsChart() {
-  const movies = useMovies();
+  const { movies, loading } = useMovies();
 
   const processAwardsData = () => {
     const movieData = movies
@@ -27,6 +28,8 @@ export default function OscarStatsChart() {
   };
 
   const awardsData = processAwardsData();
+
+  if (loading) return <Loader />;
 
   return (
     <div className="card mb-4">

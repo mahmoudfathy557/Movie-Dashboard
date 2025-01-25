@@ -1,10 +1,12 @@
 import React from "react";
 import { useMovies } from "../hooks/useMovies";
 import MovieDetailsCard from "./MovieDetailsCard";
+import { Loader } from "./Loader";
 
 export default function MovieCards() {
-  const movies = useMovies();
+  const { movies, loading } = useMovies();
 
+  if (loading) return <Loader />;
   return (
     <div className="row">
       <h1>My Movies</h1>

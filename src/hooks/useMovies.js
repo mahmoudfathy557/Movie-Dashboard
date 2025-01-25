@@ -6,5 +6,5 @@ export const useMovies = () => {
   if (!context) {
     throw new Error("useMovies must be used within a MovieProvider");
   }
-  return context.movies;
+  return { movies: context.movies, loading: context.loading };
 };

@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 import { PieChart } from "@mui/x-charts/PieChart";
 
 export default function TopPerformersChart() {
-  const movies = useMovies();
+  const { movies, loading } = useMovies();
   const topMovies = [...movies].sort((a, b) => b.rating - a.rating).slice(0, 5);
 
   const data = topMovies.map((movie) => ({
@@ -16,6 +16,8 @@ export default function TopPerformersChart() {
         ? movie.title.substring(0, 10) + "..."
         : movie.title,
   }));
+
+  if (loading) return <Loader />;
 
   return (
     <Card className="mb-4">

@@ -1,9 +1,6 @@
 import React from "react";
-import { useMovies } from "../hooks/useMovies";
 
 export default function MovieDetailsCard({ movie }) {
-  const movies = useMovies();
-
   return (
     <div key={movie.id}>
       <div className="flip-card">
