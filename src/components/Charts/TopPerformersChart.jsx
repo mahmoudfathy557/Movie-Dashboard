@@ -4,6 +4,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { PieChart } from "@mui/x-charts/PieChart";
+import { Loader } from "../Loader";
 
 export default function TopPerformersChart() {
   const { movies, loading } = useMovies();
